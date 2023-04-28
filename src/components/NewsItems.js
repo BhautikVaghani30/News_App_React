@@ -2,10 +2,14 @@
 import React, { Component } from "react";
 
 export class NewsItems extends Component {
-    constructor(){
-        super();
-        console.log("hello")
+  constructor(){
+    super();
+    this.state = {
+        articles: [],
+        loading: false,
+        page: 1
     }
+}
 
 
   render() {
@@ -19,7 +23,7 @@ export class NewsItems extends Component {
             <p className="card-text">
             {disc}
             </p>
-            <a href={newsurl} target="_blanck" className="btn btn-sm btn-primary">
+            <a href={newsurl} target="_blanck" className="btn btn-sm btn-dark">
               Read More &#10141;
             </a>
           </div>
