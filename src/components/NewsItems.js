@@ -13,14 +13,14 @@ export class NewsItems extends Component {
     return (
       <div className="my-3">
         <div className="card" style={{width: "18rem"}}>
-          <img src={{img}} className="card-img-top" alt="..." />
+          <img src={img } className="card-img-top" height="200px" alt="..." />
           <div className="card-body">
-            <h5 className="card-title">{title}</h5>
+            <h5 className="card-title">{title}...</h5>
             <p className="card-text">
-            {disc}
+            {disc}...
             </p>
-            <a href="/" className="btn btn-primary">
-              Go somewhere
+            <a href={newsurl} target="_blanck" className="btn btn-sm btn-primary">
+              Read More &#10141;
             </a>
           </div>
         </div>

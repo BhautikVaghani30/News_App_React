@@ -36,7 +36,7 @@ export class News extends Component {
               "name": "Associated Press"
           },
           "author": "Mauricio Savarese",
-          "title": "Brazil judge orders temporary suspension of Telegram",
+          "title": "Brazil judge orders temporary suspension of ",
           "description": "SAO PAULO (AP) — A federal judge in Brazil on Wednesday ordered a temporary suspension of messaging app Telegram, citing the social media platform's alleged failure to provide all information Federal Police requested on neo-Nazi chat groups.",
           "url": "https://apnews.com/article/brazil-telegram-suspension-social-media-school-violence-d72acaacd3c1b4d07c2c4fcb094f4ce6",
           "urlToImage": "https://storage.googleapis.com/afs-prod/media/b8cd8ef87b884e99b6297b269f61fea1/3000.webp",
@@ -82,15 +82,12 @@ export class News extends Component {
       <div className='container my-3'>
         <h2>NewsMonky - Top Headlines</h2>
         <div className="row">
-            <div className="col-md-4 ">
-                <NewsItems title="cricket" disc="mydisp" img="https://www.google.com/search?q=cricket&sxsrf=APwXEdeU45cY9p_PxOvWazlluQ4nOK_ZHw:1682600371279&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi9-7brjsr-AhWgslYBHRbQC78Q_AUoAnoECAEQBA&biw=1280&bih=881&dpr=1#imgrc=w0pmka6mgw2JcM" newsurl="todo"/>
-            </div>
-            <div className="col-md-4 ">
-                <NewsItems title="cricket" disc="mydisp" img="https://heise.cloudimg.io/bound/300x300/q85.png-lossy-85.webp-lossy-85.foil1/_www-heise-de_/imgs/18/4/1/5/0/2/5/1/HeiseM_an_apple_logo_with_lots_of_different_mixed_reality_heads_df7d5443-572c-4532-b897-60ed56f9ea8c-5de054a498fe7561.png" newsurl="todo"/>
-            </div>
-            <div className="col-md-4 ">
-                <NewsItems title="cricket" disc="mydisp"img="https://heise.cloudimg.io/bound/300x300/q85.png-lossy-85.webp-lossy-85.foil1/_www-heise-de_/imgs/18/4/1/5/0/2/5/1/HeiseM_an_apple_logo_with_lots_of_different_mixed_reality_heads_df7d5443-572c-4532-b897-60ed56f9ea8c-5de054a498fe7561.png" newsurl="todo"/>
-            </div>
+            {this.state.articles.map((element)=>{
+
+            return <div className="col-md-4 " key={element.url}>
+                    <NewsItems title={element.title.slice(0,45)} disc={element.description.slice(0, 88)} img={element.urlToImage} newsurl={element.url}/>
+                </div>
+            })}
         </div>
         
       </div>
