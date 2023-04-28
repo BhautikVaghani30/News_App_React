@@ -13,11 +13,11 @@ export class NewsItems extends Component {
     return (
       <div className="my-3">
         <div className="card" style={{width: "18rem"}}>
-          <img src={img } className="card-img-top" height="200px" alt="..." />
+          <img src={!img?"https://images.hindustantimes.com/tech/img/2023/04/27/1600x900/tarantula_nebula_1682576878974_1682576885007.png":img } className="card-img-top" height="200px" alt="..." />
           <div className="card-body">
-            <h5 className="card-title">{title}...</h5>
+            <h5 className="card-title">{title}</h5>
             <p className="card-text">
-            {disc}...
+            {disc}
             </p>
             <a href={newsurl} target="_blanck" className="btn btn-sm btn-primary">
               Read More &#10141;
