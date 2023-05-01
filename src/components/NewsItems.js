@@ -2,14 +2,7 @@
 import React, { Component } from "react";
 
 export class NewsItems extends Component {
-  constructor() {
-    super();
-    this.state = {
-      articles: [],
-      loading: false,
-      page: 1,
-    };
-  }
+
 
   render() {
     let { title, disc, img, newsurl, author, date, source} = this.props;
@@ -42,7 +35,7 @@ export class NewsItems extends Component {
                 <u>{new Date(date).toGMTString()}</u>
               </small>
             </p>
-            <a href={newsurl} target="_blanck" className="btn btn-sm btn-dark">
+            <a rel="noreferrer" href={newsurl} target="_blanck" className="btn btn-sm btn-dark">
               Read More &#10141;
             </a>
           </div>
