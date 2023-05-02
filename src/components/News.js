@@ -1,89 +1,71 @@
-import PropTypes from "prop-types";
-import React, { Component } from "react";
+// import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import NewsItems from "./NewsItems";
 import Spinner from "./Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
-export class News extends Component {
-  static defaultProps = {
-    country: "in",
-    pagesize: 8,
-    category: "general",
-  };
+const News=(props)=>{
+  const [articles,setarticles]=useState()
+  const [loading,setloading]=useState(true)
+  const [page,setpage]=useState(1)
+  const [totalResults,settotalResults]=useState(0)
+  // document.title = `${capitalize(props.category)} - NewsMonky`;
+  
 
-  PropTypes = {
-    country: PropTypes.string,
-    pagesize: PropTypes.number,
-    category: PropTypes.string,
-  };
-
-  capitalize = (String) => {
+  const capitalize = (String) => {
     return String.charAt(0).toUpperCase() + String.slice(1);
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      articles: [],
-      loading: true,
-      page: 1,
-      totalResults: 0,
-    };
-    document.title = `${this.capitalize(this.props.category)} - NewsMonky`;
-  }
 
-  async updatenews() {
-    this.props.setprogress(10);
-    // let url = `https://newsapi.org/v2/everything?q=apple&from=2023-04-28&to=2023-04-28&sortBy=popularity&category=${this.props.category}&apiKey=346f6368416547f394f795632801e89a&page=2&pageSize=${this.props.pagesize}`;
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=346f6368416547f394f795632801e89a&page=${this.state.page}&pageSize=${this.props.pagesize}`;
-    this.setState({ loading: true });
+
+  const updatenews = async ()=> {
+    props.setprogress(10);
+    // let url = `https://newsapi.org/v2/everything?q=apple&from=2023-04-28&to=2023-04-28&sortBy=popularity&category=${props.category}&apiKey=${props.apikey}&page=2&pageSize=${props.pagesize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page}&pageSize=${props.pagesize}`;
+    setloading(true);
+    setloading(true);
     let data = await fetch(url);
-    this.props.setprogress(50);
+    props.setprogress(50);
     let parsdata = await data.json();
     // console.log(parsdata);
+    setarticles(parsdata.articles)
+    settotalResults(parsdata.totalResults)
+    setloading(false)
     
-    this.setState({
-      articles: parsdata.articles,
-      totalResults: parsdata.totalResults,
-      loading: false,
-    });
-    this.props.setprogress(100);
+    props.setprogress(100);
   }
-  
-  async componentDidMount() {
-    this.updatenews();
-  }
+  useEffect(()=>{
+    updatenews();
+  },[])
 
-  fetchMoreData = async () => {
-    this.setState({ page: this.state.page + 1 });
-    // let url = `https://newsapi.org/v2/everything?q=apple&from=2023-04-28&to=2023-04-28&sortBy=popularity&category=${this.props.category}&apiKey=346f6368416547f394f795632801e89a&page=2&pageSize=${this.props.pagesize}`;
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=346f6368416547f394f795632801e89a&page=${this.state.page}&pageSize=${this.props.pagesize}`;
-    this.setState({ loading: true });
+
+  const fetchMoreData = async () => {
+    setpage(page+1)
+    // let url = `https://newsapi.org/v2/everything?q=apple&from=2023-04-28&to=2023-04-28&sortBy=popularity&category=${props.category}&apiKey=${props.apikey}&page=2&pageSize=${props.pagesize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page}&pageSize=${props.pagesize}`;
     let data = await fetch(url);
     let parsdata = await data.json();
     // console.log(parsdata);
-    this.setState({
-      articles: this.state.articles.concat(parsdata.articles),
-      totalResults: parsdata.totalResults,
-      loading: false,
-    });
+    setarticles(articles.concat(parsdata.articles));
+    settotalResults(parsdata.totalResults)
+    setloading(false)
+    
   };
-  render() {
+
     return (
       <>
         <h1 style={{ margin: "40px 0px" }} className="text-center">
-          NewsMonky - Top {this.capitalize(this.props.category)} Headlines
+          NewsMonky - Top {capitalize(props.category)} Headlines
         </h1>
-        {this.state.loading && <Spinner />}
+        {loading && <Spinner />}
         <InfiniteScroll
-          dataLength={this.state.articles.length}
-          next={this.fetchMoreData}
-          hasMore={this.state.articles.length !== this.state.totalResults}
+          dataLength={articles.length}
+          next={fetchMoreData}
+          hasMore={articles.length !== totalResults}
           loader={<Spinner />}
         >
           <div className="container">
             <div className="row">
-              {this.state.articles &&
-                this.state.articles.map((element, i) => {
+              {articles&&articles.map((element, i) => {
                   return (
                     <div key={i} className="col-md-4 ">
                       <NewsItems
@@ -103,7 +85,18 @@ export class News extends Component {
         </InfiniteScroll>
       </>
     );
-  }
+  
 }
+News.defaultProps = {
+  country: "in",
+  pagesize: 8,
+  category: "general",
+};
+
+// News.PropTypes = {
+//   country: PropTypes.string,
+//   pagesize: PropTypes.number,
+//   category: PropTypes.string,
+// };
 
 export default News;

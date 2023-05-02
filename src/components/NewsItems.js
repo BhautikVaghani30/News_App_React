@@ -1,9 +1,8 @@
 // import PropTypes from "prop-types";
-import React, { Component } from "react";
+import React from "react";
 
-export class NewsItems extends Component {
-  render() {
-    let { title, disc, img, newsurl, author, date, source } = this.props;
+const NewsItems = (props)=>{
+    let { title, disc, img, newsurl, author, date, source } = props;
     return (
       <div className="my-3">
         <div className="card">
@@ -27,10 +26,7 @@ export class NewsItems extends Component {
             <h5 className="card-title">{title}</h5>
             <p className="card-text">{disc}</p>
             <p className="card-text">
-              <small className="text-muted">
-                By <u>{!author ? "Unknown" : author}</u> on{" "}
-                <u>{new Date(date).toGMTString()}</u>
-              </small>
+              <small className="text-muted">By <u>{!author ? "Unknown" : author}</u> on{" "}<u>{new Date(date).toGMTString()}</u></small>
             </p>
             <a
               rel="noreferrer"
@@ -44,7 +40,7 @@ export class NewsItems extends Component {
         </div>
       </div>
     );
-  }
+  
 }
 
 export default NewsItems;
