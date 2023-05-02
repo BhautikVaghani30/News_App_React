@@ -2,17 +2,17 @@
 import React, { Component } from "react";
 
 export class NewsItems extends Component {
-
-
   render() {
-    let { title, disc, img, newsurl, author, date, source} = this.props;
+    let { title, disc, img, newsurl, author, date, source } = this.props;
     return (
       <div className="my-3">
         <div className="card">
-        <span className="position-absolute top-0  translate-middle badge rounded-pill bg-danger" style={{left:'90%',zIndex:'1'}}>
-                {source}
-                
-              </span>
+          <div style={{display:'flex',justifyContent:'flex-end',position:'absolute',right:'0'}}>
+            <span
+              className=" badge rounded-pill bg-danger">
+              {source}
+            </span>
+          </div>
           <img
             src={
               !img
@@ -24,18 +24,20 @@ export class NewsItems extends Component {
             alt="..."
           />
           <div className="card-body">
-            <h5 className="card-title">
-              {title}
-              
-            </h5>
+            <h5 className="card-title">{title}</h5>
             <p className="card-text">{disc}</p>
             <p className="card-text">
               <small className="text-muted">
-                By <u>{!author ? "Unknown" : author}</u> on {" "}
+                By <u>{!author ? "Unknown" : author}</u> on{" "}
                 <u>{new Date(date).toGMTString()}</u>
               </small>
             </p>
-            <a rel="noreferrer" href={newsurl} target="_blanck" className="btn btn-sm btn-dark">
+            <a
+              rel="noreferrer"
+              href={newsurl}
+              target="_blanck"
+              className="btn btn-sm btn-dark"
+            >
               Read More &#10141;
             </a>
           </div>
